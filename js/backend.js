@@ -1,34 +1,20 @@
 'use strict';
 
 (function () {
-  var produceXhr = function (method, url, onSuccess, onError) {
+  var URL_LOAD_OFFERS_DATA = 'https://javascript.pages.academy/keksobooking/data';
+  var URL_SAVE_USER_DATA = 'https://javascript.pages.academy/keksobooking';
+  var OK_STATUS_CODE = 200;
+  var TIMEOUT_IN_MS = 10000;
+
+  window.load = function (onSuccess, onError, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      var error;
-      switch (xhr.status) {
-        case window.utils.Status.SUCCESS:
-          onSuccess(xhr.response);
-          break;
-
-        case window.utils.Status.INVALID_REQUEST:
-          error = 'Неверный запрос';
-          break;
-        case window.utils.Status.NOT_AUTHORIZED:
-          error = 'Пользователь не авторизован';
-          break;
-        case window.utils.Status.ERROR_NOT_FOUND:
-          error = 'Ничего не найдено';
-          break;
-        case window.utils.Status.SERVER_ERROR:
-          error = 'Во время обращения к серверу произошла ошибка. Пожалуйста, проверьте ваше интернет-соединение и обновите страницу';
-          break;
-        default:
-          error = 'Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText;
-      }
-      if (error) {
-        onError(error);
+      if (xhr.status === OK_STATUS_CODE) {
+        onSuccess(xhr.response);
+      } else if (xhr.status !== OK_STATUS_CODE && onError) {
+        onError('Произошла ошибка ' + xhr.status + ' ' + xhr.responce);
       }
     });
 
@@ -40,22 +26,14 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = window.utils.Status.TIMEOUT_TIME;
-    xhr.open(method, url);
-    return xhr;
-  };
+    xhr.timeout = TIMEOUT_IN_MS;
 
-  var load = function (onSuccess, onError) {
-    produceXhr('GET', window.utils.Url.LOAD, onSuccess, onError).send();
-  };
-
-  var upload = function (onSuccess, onError, data) {
-    produceXhr('POST', window.utils.Url.UPLOAD, onSuccess, onError).send(data);
-  };
-
-  window.backend = {
-    load: load,
-    upload: upload
+    if (data) {
+      xhr.open('POST', URL_SAVE_USER_DATA);
+      xhr.send(data);
+    } else {
+      xhr.open('GET', URL_LOAD_OFFERS_DATA);
+      xhr.send();
+    }
   };
 })();
-

@@ -1,60 +1,44 @@
 'use strict';
 
 (function () {
-  var activePin = null;
+  var MAX_PIN_AMOUNT = 5;
+  var PIN_WIDTH = 50;
+  var PIN_HEIGHT = 70;
+  var MAIN_PIN_WIDTH = 65;
+  var MAIN_PIN_HEIGHT = 85;
 
-  var pins = [];
+  var pinTemplate = document.querySelector('#pin').content;
+  var pinList = document.querySelector('.map__pins');
+  var pinMain = document.querySelector('.map__pin--main');
+  var pinMainHalf = Math.floor(MAIN_PIN_WIDTH / 2);
 
-  var mapPins = document.querySelector('.map .map__pins');
-  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var renderPinItem = function (data) {
+    var pinItem = pinTemplate.cloneNode(true).querySelector('button');
+    var pinImg = pinItem.querySelector('img');
 
-  var getElement = function (mark) {
-    var pinItem = pinTemplate.cloneNode(true);
-    pinItem.style.top = mark.location.y - window.utils.PinSize.HEIGHT + 'px';
-    pinItem.style.left = mark.location.x - (window.utils.PinSize.WIDTH / 2) + 'px';
-    pinItem.querySelector('img').src = mark.author.avatar;
-    pinItem.querySelector('img').alt = mark.offer.title;
+    pinItem.style.left = data.location.x - PIN_WIDTH / 2 + 'px';
+    pinItem.style.top = data.location.y - PIN_HEIGHT + 'px';
+    pinImg.src = data.author.avatar;
+    pinImg.alt = data.offer.title;
 
     return pinItem;
   };
 
-  var addActivate = function (pin) {
-    activePin = pin;
-    activePin.classList.add('map__pin--active');
-  };
-
-  var removeActivate = function () {
-    if (activePin) {
-      activePin.classList.remove('map__pin--active');
-      activePin = null;
-    }
-  };
-
-  var renderElements = function (marks) {
+  var renderPinList = function (data) {
     var fragment = document.createDocumentFragment();
+    var pinsAmount = data.length > MAX_PIN_AMOUNT ? MAX_PIN_AMOUNT : data.length;
 
-    marks.forEach(function (mark, index) {
-      var pin = getElement(mark);
-      pin.tabIndex = index + window.utils.TWO;
-      pins.push(pin);
+    for (var i = 0; i < pinsAmount; i++) {
+      fragment.appendChild(renderPinItem(data[i]));
+    }
 
-      fragment.appendChild(pin);
-      window.map.addPinClick(pin, mark);
-    });
-    mapPins.appendChild(fragment);
-  };
-
-  var removeElements = function () {
-    pins.forEach(function (pin) {
-      pin.remove();
-    });
-    pins = [];
+    pinList.appendChild(fragment);
   };
 
   window.pin = {
-    renderElements: renderElements,
-    removeElements: removeElements,
-    addActivate: addActivate,
-    removeActivate: removeActivate
+    main: pinMain,
+    mainHalfWidth: pinMainHalf,
+    mainHeight: MAIN_PIN_HEIGHT,
+    render: renderPinList
   };
 })();

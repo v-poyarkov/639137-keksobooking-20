@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE htm
+l>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -23,7 +24,7 @@
         <div class="map__overlay">
           <h2 class="map__title">И снова Токио!</h2>
         </div>
-        <button class="map__pin map__pin--main" tabindex="1" style="left: 570px; top: 375px;">
+        <button class="map__pin map__pin--main" style="left: 570px; top: 375px;">
           <img src="img/muffin-red.svg" width="40" height="44" draggable="false" alt="Метка объявления">
           <svg viewBox="0 0 70 70" width="156" height="156" aria-label="Метка для поиска жилья">
             <defs>
@@ -37,7 +38,7 @@
 
       <!-- Фильтрация объявлений -->
       <div class="map__filters-container">
-        <form class="map__filters" action="https://javascript.pages.academy/keksobooking" method="post" autocomplete="off">
+        <form action="#" class="map__filters" autocomplete="off">
           <select name="housing-type" id="housing-type" class="map__filter">
             <option value="any" selected>Любой тип жилья</option>
             <option value="palace">Дворец</option>
@@ -76,7 +77,7 @@
             <label class="map__feature map__feature--elevator" for="filter-elevator">Лифт</label>
             <input type="checkbox" name="features" value="conditioner" id="filter-conditioner" class="map__checkbox visually-hidden">
             <label class="map__feature map__feature--conditioner" for="filter-conditioner">Кондиционер</label>
-           </fieldset>
+          </fieldset>
         </form>
       </div>
     </section>
@@ -84,7 +85,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" action="https://javascript.pages.academy/keksobooking" autocomplete="off">
+      <form class="ad-form ad-form--disabled" action="https://javascript.pages.academy/keksobooking" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -92,14 +93,14 @@
               <img src="img/muffin-grey.svg" alt="Аватар пользователя" width="40" height="44">
             </div>
             <div class="ad-form__field">
-              <input type="file" id="avatar" name="avatar" class="ad-form-header__input visually-hidden" accept = 'image/*'/>
+              <input type="file" accept="image/png, image/jpeg" id="avatar" name="avatar" class="ad-form-header__input visually-hidden">
               <label class="ad-form-header__drop-zone" for="avatar">Загрузить<br>фото...</label>
             </div>
             <p class="ad-form-header__info">Заполните все обязательные поля, назначьте цену, загрузите фотографии. Придумайте интересное описание. Оно сделает объявление более живым и привлекательным. Получившееся объявление должно давать гостям полное представление о вашем жилье.</p>
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="title" required>Заголовок объявления</label>
+          <label class="ad-form__label" for="title">Заголовок объявления</label>
           <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио" minlength="30" maxlength="100" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
@@ -107,7 +108,7 @@
           <input id="address" name="address" type="text" readonly>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="type" required>Тип жилья</label>
+          <label class="ad-form__label" for="type">Тип жилья</label>
           <select id="type" name="type">
             <option value="bungalo">Бунгало</option>
             <option value="flat" selected>Квартира</option>
@@ -116,11 +117,11 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="price" required>Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required>
+          <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
+          <input id="price" name="price" type="number" placeholder="1000" min="1000" max="1000000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
-          <label class="ad-form__label" for="timein" required>Время заезда и выезда</label>
+          <label class="ad-form__label" for="timein">Время заезда и выезда</label>
           <select id="timein" name="timein">
             <option value="12:00" selected>После 12</option>
             <option value="13:00">После 13</option>
@@ -133,7 +134,7 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="room_number" required>Количество комнат</label>
+          <label class="ad-form__label" for="room_number">Количество комнат</label>
           <select id="room_number" name="rooms">
             <option value="1" selected>1 комната</option>
             <option value="2">2 комнаты</option>
@@ -142,11 +143,11 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="capacity" required>Количество мест</label>
+          <label class="ad-form__label" for="capacity">Количество мест</label>
           <select id="capacity" name="capacity">
-            <option value="3" selected>для 3 гостей</option>
+            <option value="3">для 3 гостей</option>
             <option value="2">для 2 гостей</option>
-            <option value="1">для 1 гостя</option>
+            <option value="1" selected>для 1 гостя</option>
             <option value="0">не для гостей</option>
           </select>
         </fieldset>
@@ -173,7 +174,7 @@
           <label class="ad-form__label">Фотография жилья</label>
           <div class="ad-form__photo-container">
             <div class="ad-form__upload">
-              <input type="file" id="images" name="images" class="ad-form__input visually-hidden" accept="image/png, image/jpeg">
+              <input type="file" accept="image/png, image/jpeg" id="images" name="images" class="ad-form__input visually-hidden">
               <label for="images" class="ad-form__drop-zone">Загрузить<br>фото...</label>
             </div>
             <div class="ad-form__photo"></div>
@@ -206,8 +207,8 @@
   <template id="card">
     <article class="map__card popup">
       <img src="img/avatars/user01.png" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
-      <button type="button" class="popup__close" tabindex="1">Закрыть</button>
-      <h3 class="popup__title"></h3>
+      <button type="button" class="popup__close">Закрыть</button>
+      <h3 class="popup__title">Уютное гнездышко для молодоженов</h3>
       <p class="popup__text popup__text--address">102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3</p>
       <p class="popup__text popup__text--price">5200&#x20bd;<span>/ночь</span></p>
       <h4 class="popup__type">Квартира</h4>
@@ -248,14 +249,17 @@
     </div>
   </template>
 
-  <script src="js/debounce.js"></script>
-  <script src="js/backend.js"></script>
   <script src="js/utils.js"></script>
-  <script src="js/card.js"></script>
-  <script src="js/map.js"></script>
+  <script src="js/backend.js"></script>
+  <script src="js/message.js"></script>
   <script src="js/pin.js"></script>
-  <script src="js/filter.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/move.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/images.js"></script>
   <script src="js/form.js"></script>
+  <script src="js/debounce.js"></script>
+  <script src="js/filter.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
